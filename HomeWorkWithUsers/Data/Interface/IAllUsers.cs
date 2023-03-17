@@ -4,8 +4,8 @@ namespace HomeWorkWithUsers.Data.Interface
 {
 	public interface IAllUsers
 	{
-		IEnumerable<UserModel> users { get;}
-		UserModel getObjectUser(int userId);
+		IEnumerable<UserModel> Users {get;}
+		UserModel GetObjectUser(int userId);
 	}
 }
 

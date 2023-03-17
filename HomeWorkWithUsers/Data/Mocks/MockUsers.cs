@@ -5,7 +5,8 @@ using HomeWorkWithUsers.Models;
 namespace HomeWorkWithUsers.Data.Mocks {
     
     public class MockUsers : IAllUsers {
-        public IEnumerable<UserModel> users {
+
+        public IEnumerable<UserModel> Users {
             get {
                 List<UserModel> listUser = new List<UserModel>();
                 for (int i = 0; i < 100; i++) {
@@ -15,8 +16,10 @@ namespace HomeWorkWithUsers.Data.Mocks {
             }
         }
 
+        
 
-        public UserModel getObjectUser(int userId)
+       
+        public UserModel GetObjectUser(int userId)
         {
             throw new NotImplementedException();
         }

@@ -27,20 +27,22 @@ namespace HomeWorkWithUsers.Controllers {
             
             if (size == 0)
                 size = 10;
-
+            
             var skip = page * size;
-            UserListViewModel obj = new UserListViewModel(page, size);
+            ListViewModel<UserModel> obj = new ListViewModel<UserModel>(_allUsers.Users.Count(), page, size);
             List<UserModel> a = new List<UserModel>();
             for (int i = skip; i < skip + size; i++) {
-                 a.Add(_allUsers.users.ElementAt(i));
+                if (i < _allUsers.Users.Count()) {
+                    a.Add(_allUsers.Users.ElementAt(i));
+                }
             }
-            obj.allUsers = a;
+            obj.List = a;
             return View(obj);
         }
 
 
 
-            public IActionResult AddUser() {
+        public IActionResult AddUser() {
             return View();
         }
 

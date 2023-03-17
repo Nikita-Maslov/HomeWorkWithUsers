@@ -14,6 +14,7 @@
     <None Remove="Data\" />
     <None Remove="Data\Interface\" />
     <None Remove="Data\Mocks\" />
+    <None Remove="Views\Tasks\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Users\" />
@@ -21,5 +22,6 @@
     <Folder Include="Data\" />
     <Folder Include="Data\Interface\" />
     <Folder Include="Data\Mocks\" />
+    <Folder Include="Views\Tasks\" />
   </ItemGroup>
 </Project>

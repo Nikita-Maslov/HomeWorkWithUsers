@@ -1,9 +1,9 @@
 ﻿@using HomeWorkWithUsers.ViewModels
-@model UserListViewModel
+@model ListViewModel<TaskModel>
 
 
 @{
-    ViewData["Title"] = "Страница пользователей";
+    ViewData["Title"] = "Страница Задач";
 }
 
 <div class="text-center">
@@ -12,42 +12,42 @@
 <div>
     <div class="d-inline float-start">
         <p>
-            @Html.ActionLink("Добавить нового пользователя", "AddUser")
+            @Html.ActionLink("Добавить новую задачу", "AddTask")
         </p>
     </div>
     <div class="d-inline float-end">
-        <p>Страница №@(Model.page+1) из 10</p>
+        <p>Страница №@(Model.page+1)</p>
     </div>
 </div>
 
 <table class="table">
     <tr>
         <th>Идентификатор</th>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Емайл</th>
+        <th>Заголовок задачи</th>
+        <th>Исполнитель задачи </th>
+        <th>Описание задачи</th>
         <th>Другое</th>
     </tr>
     @{int i = 1;
 
-        foreach (var item in Model.allUsers)
+        foreach (var item in Model.List)
         {
             <tr>
 
                 <td>
-                    @Html.DisplayFor(usersItem => item.id)
+                    @Html.DisplayFor(usersItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(usersItem => item.surName)
+                    @Html.DisplayFor(usersItem => item.Subject)
                 </td>
                 <td>
-                    @Html.DisplayFor(usersItem => item.name)
+                    @Html.DisplayFor(usersItem => item.ContractorId)
                 </td>
                 <td>
-                    @Html.DisplayFor(usersItem => item.email)
+                    @Html.DisplayFor(usersItem => item.Description)
                 </td>
 
-                <td>@Html.ActionLink("Редактировать", "EditUser", item)</td>
+                <td>@Html.ActionLink("Редактировать", "EditTask", item)</td>
 
             </tr>
             i++;
@@ -60,13 +60,13 @@
     @if (Model.canBack)
     {
 
-        <a class="" href="/Users/?page=@(Model.page - 1)">
+        <a class="" href="/Tasks/?page=@(Model.page - 1)">
             <button type="submit" class="btn btn-primary">Назад</button>
         </a>
     }
     @if (Model.canForward)
     {
-        <a class="" href="/Users/?page=@(Model.page + 1)">
+        <a class="" href="/Tasks/?page=@(Model.page + 1)">
             <button type="submit" class="btn btn-primary">Вперед</button></a>
      }
 </div>
