@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HomeWorkWithUsers.ViewModels
 {
-	public class UserListViewModel
+	public class UserListViewModel<T>
 	{
-		public IEnumerable<UserModel> allUsers { get; set;}
+		public IEnumerable<T> List{ get; set;}
+        
+
 
         public int totalCount { get; set; }
         public int page { get; set; }
@@ -18,13 +20,13 @@ namespace HomeWorkWithUsers.ViewModels
         public bool canForward { get; set; }
 
 
-        public UserListViewModel(int page, int size) {
+        public UserListViewModel(int totalCount,int page, int size) {
          
             this.page = page;
             this.size = size;
 
             canBack = page > 0;
-            canForward = page * size < 90;
+            canForward = page * size < totalCount-10;
         }
     }
 }
