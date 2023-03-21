@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Dapper;
 using HomeWorkWithUsers.Data.Domain;
 using HomeWorkWithUsers.Data.Repository;
@@ -16,7 +17,10 @@ namespace HomeWorkWithUsers.Data.Mocks
 
         public void Create(User user)
         {
-            throw new NotImplementedException();
+            user.CreateDate = DateTimeOffset.UtcNow.ToString(); ;
+            var query = $"INSERT INTO public.\"Users\"(\"Name\", \"SurName\", \"Phone\", \"Email\", \"CreateDate\", \"ParentId\")"+
+                $"VALUES('{user.Name}', '{user.SurName}', '{user.Phone}', '{user.Email}', '{user.CreateDate}', {user.ParentId});";
+            user.Id = connectionString.ExecuteScalar<int>(query);
         }
 
         public void Delete(int id)
@@ -32,7 +36,6 @@ namespace HomeWorkWithUsers.Data.Mocks
         public List<User> GetUsers() {
             var users = connectionString.Query<User>("SELECT \"Id\", \"Name\", \"SurName\", \"Phone\", \"Email\", \"CreateDate\", \"ParentId\" FROM public.\"Users\";").ToList();
             return users ?? new List<User>();
-
         }
 
         public void Update(User user)

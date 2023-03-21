@@ -17,7 +17,7 @@
         </p>
     </div>
     <div class="d-inline float-end">
-        <p>Страница №@(Model.page+1) из 10</p>
+        <p>Страница №@(Model.page)</p>
     </div>
 </div>
 
@@ -33,25 +33,25 @@
 
         foreach (var item in Model.List)
         {
-            <tr>
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(usersItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(usersItem => item.SurName)
-                </td>
-                <td>
-                    @Html.DisplayFor(usersItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(usersItem => item.Email)
-                </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.SurName)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.Email)
+            </td>
 
-                <td>@Html.ActionLink("Редактировать", "EditUser", item)</td>
+            <td>@Html.ActionLink("Редактировать", "EditUser", item) @Html.ActionLink("Удалить", "DeleteUser", item)</td>
 
-            </tr>
-            i++;
+        </tr>
+         
         }
 
     }

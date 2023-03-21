@@ -1,4 +1,5 @@
-﻿@model UserModel
+﻿@using HomeWorkWithUsers.Data.Domain
+@model User
 @{
     ViewData["Title"] = "Редактировать пользователя";
 }
@@ -7,26 +8,26 @@
     <h2 class="display-4">@ViewData["Title"] </h2>
 </div>
 
-<form method="post" asp-controller="Users" asp-action="Check">
+<form method="post" asp-controller="Users" asp-action="Index">
     <div class="form-group row">
-        <label asp-for="name" class="col-1 col-form-label"></label>
+        <label asp-for="Name" class="col-1 col-form-label"></label>
         <div class="col-11">
-            <input asp-for="name" value="@Model.name"/>
-            <span asp-validation-for="name"></span>
+            <input asp-for="Name" value="@Model.Name"/>
+            <span asp-validation-for="Name"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="surName" class="col-1 col-form-label"></label>
+        <label asp-for="SurName" class="col-1 col-form-label"></label>
         <div class="col-11">
-            <input asp-for="surName" />
-            <span asp-validation-for="surName"></span>
+            <input asp-for="SurName" />
+            <span asp-validation-for="SurName"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="email" class="col-1 col-form-label"></label>
+        <label asp-for="Email" class="col-1 col-form-label"></label>
         <div class="col-11">
-            <input asp-for="email" />
-            <span asp-validation-for="email"></span>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
         </div>
     </div>
 

@@ -53,21 +53,18 @@ namespace HomeWorkWithUsers.Controllers {
         }
 
 
-
         public IActionResult AddUser() {
             return View();
         }
 
-        public IActionResult EditUser(UserModel contact) {
+        public IActionResult EditUser(User contact) {
             return View(contact);
         }
 
         [HttpPost]
-        public IActionResult Check(UserModel contact) {
-            if (ModelState.IsValid) {
-                return RedirectToAction("EditUser", contact); 
-            }
-            return View("Index");
+        public IActionResult Check(User contact) {
+                repo.Create(contact);
+                return RedirectToAction("EditUser",contact);      
         }
 
     }

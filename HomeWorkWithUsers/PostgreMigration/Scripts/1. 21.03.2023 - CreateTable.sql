@@ -4,5 +4,5 @@
     "SurName" varchar(50) NOT NULL,
     "Phone" varchar(50) NULL,
     "Email" varchar(50) NULL,
-    "CreateDate" timestamptz  NULL
+    "CreateDate" varchar(50) NULL
 );
