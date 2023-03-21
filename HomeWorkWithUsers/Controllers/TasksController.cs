@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using HomeWorkWithUsers.Data.Interface;
 using HomeWorkWithUsers.ViewModels;
 using HomeWorkWithUsers.Models;
+using HomeWorkWithUsers.LairLogic.Models.Tasks;
+using HomeWorkWithUsers.Data.Mocks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,9 +17,12 @@ namespace HomeWorkWithUsers.Controllers
     {
 
         private readonly IAllTasks _allTasks;
+        private readonly IAllUsers _allUsers;
 
-        public TasksController(IAllTasks allTasks) {
+
+        public TasksController(IAllTasks allTasks, IAllUsers allUsers) {
             _allTasks = allTasks;
+            _allUsers = allUsers;
         }
 
 
@@ -28,28 +33,38 @@ namespace HomeWorkWithUsers.Controllers
                 size = 10;
 
             var skip = page * size;
-            ListViewModel<TaskModel> obj = new ListViewModel<TaskModel>(_allTasks.Tasks.Count(), page, size);
+
+            ListViewModel<TaskModel> obj = new ListViewModel<TaskModel>(_allTasks.Tasks, page, size);
+
             List<TaskModel> a = new List<TaskModel>();
+
             for (int i = skip; i < skip + size; i++) {
                 if (i < _allTasks.Tasks.Count()) {
                     a.Add(_allTasks.Tasks.ElementAt(i));
                 }
             }
+
             obj.List = a;
             return View(obj);
         }
 
+      
         public IActionResult AddTask() {
-            return View();
+            AddNewTaskViewModel obj = new AddNewTaskViewModel();
+            obj.Contractors = _allUsers.Users;
+            return View(obj);
         }
 
-        public IActionResult EditTask(TaskModel contact) {
+        public IActionResult EditTask(TaskCreateDTO contact) {
             return View(contact);
         }
 
         [HttpPost]
-        public IActionResult Check(TaskModel contact) {
+        public IActionResult Check(TaskCreateDTO contact) {
             if (ModelState.IsValid) {
+                MockTasks mockTasks = new MockTasks();
+                mockTasks.Tasks.Append(new TaskModel(_allTasks.Tasks.Last().Id+1, contact.Subject,contact.ContractorId, contact.Description));
+               
                 return RedirectToAction("EditTask", contact);
             }
             return View("Index");

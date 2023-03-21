@@ -15,6 +15,9 @@
     <None Remove="Data\Interface\" />
     <None Remove="Data\Mocks\" />
     <None Remove="Views\Tasks\" />
+    <None Remove="Logic\Models\" />
+    <None Remove="Logic\Models\Tasks\" />
+    <None Remove="Logic\Models\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Users\" />
@@ -23,5 +26,8 @@
     <Folder Include="Data\Interface\" />
     <Folder Include="Data\Mocks\" />
     <Folder Include="Views\Tasks\" />
+    <Folder Include="LairLogic\Models\" />
+    <Folder Include="LairLogic\Models\Tasks\" />
+    <Folder Include="LairLogic\Models\Users\" />
   </ItemGroup>
 </Project>

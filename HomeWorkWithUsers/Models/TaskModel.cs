@@ -30,7 +30,7 @@ namespace HomeWorkWithUsers.Models
 
 
         //Возможные исполнители задачи
-        [Display(Name = "Исполнитель задачи")]
+        [Display(Name = "Исполнители задачи")]
         public List<UserModel> Contractors { get; set; }
 
 

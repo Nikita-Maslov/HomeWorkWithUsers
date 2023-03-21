@@ -1,0 +1,36 @@
+﻿@using HomeWorkWithUsers.LairLogic.Models.Tasks
+@model TaskCreateDTO
+@{
+    ViewData["Title"] = "Редактировать задачу";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"] </h2>
+</div>
+
+<form method="post" asp-controller="Tasks" asp-action="Index">
+    <div class="form-group row">
+        <label asp-for="Subject" class="col-1 col-form-label"></label>
+        <div class="col-11">
+            <input asp-for="Subject" value="@Model.Subject" />
+            <span asp-validation-for="Subject"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ContractorId" class="col-1 col-form-label"></label>
+        <div class="col-11">
+            <input asp-for="ContractorId" />
+            <span asp-validation-for="ContractorId"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Description" class="col-1 col-form-label"></label>
+        <div class="col-11">
+            <textarea asp-for="Description" cols="50" rows="10" value=""></textarea>
+            <span asp-validation-for="Description"></span>
+        </div>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Сохранить" />
+</form>
+

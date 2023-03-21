@@ -6,7 +6,7 @@ namespace HomeWorkWithUsers.Data.Interface
 {
 	public interface IAllTasks
 	{
-        IEnumerable<TaskModel> Tasks{ get; }
+        IEnumerable<TaskModel> Tasks{ get;}
         TaskModel GetObjectTask(int userId);
     }
 }

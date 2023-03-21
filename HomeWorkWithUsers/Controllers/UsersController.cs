@@ -29,7 +29,8 @@ namespace HomeWorkWithUsers.Controllers {
                 size = 10;
             
             var skip = page * size;
-            ListViewModel<UserModel> obj = new ListViewModel<UserModel>(_allUsers.Users.Count(), page, size);
+            ListViewModel<UserModel> obj = new ListViewModel<UserModel>(_allUsers.Users, page, size);
+
             List<UserModel> a = new List<UserModel>();
             for (int i = skip; i < skip + size; i++) {
                 if (i < _allUsers.Users.Count()) {

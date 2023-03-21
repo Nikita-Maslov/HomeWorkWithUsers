@@ -1,4 +1,5 @@
-﻿@model TaskModel
+﻿@using HomeWorkWithUsers.ViewModels
+@model AddNewTaskViewModel
 
 @{
     ViewData["Title"] = "Добавить задачу";
@@ -8,17 +9,16 @@
     <h2 class="display-4">@ViewData["Title"] </h2>
 </div>
 
-<form method="post" asp-controller="Users" asp-action="Check">
+<form method="post" asp-controller="Tasks" asp-action="Check">
     <div class="form-group row">
-        <label asp-for="Subject" class="col-1 col-form-label"></label>
+        <label for="Subject" class="col-1 col-form-label">Описание</label>
         <div class="col-11">
-            <input asp-for="Subject" />
-            <span asp-validation-for="Subject"></span>
+            <input type="text" name="Subject" value="" />
         </div>
     </div>
 
     <div>
-        <label asp-for="ContractorId" class="col-1 "></label>
+        <label for="ContractorId" class="col-1 ">Пользователь</label>
         <div class="col-11">
             <select name="ContractorId">
                 @{
@@ -30,15 +30,16 @@
                 }
             </select>
         </div>
-     </div>
+    </div>
 
-        <div class="form-group row">
-            <label asp-for="Description" class="col-1"></label>
-            <div class="col-11">
-                <textarea cols="50" rows="10" name="Description" value=""></textarea>
-            </div>
+    <div class="form-group row">
+        <label for="Description" class="col-1"></label>
+        <div class="col-11">
+            <textarea cols="50" rows="10" name="Description" value=""></textarea>
         </div>
+    </div>
 
-
+    <div>
         <button type="submit" class="btn btn-primary">отправить</button>
+    </div>
 </form>

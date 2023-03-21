@@ -9,8 +9,7 @@ namespace HomeWorkWithUsers.ViewModels
 	public class ListViewModel<T>
 	{
 		public IEnumerable<T> List{ get; set;}
-        
-
+        public IEnumerable<UserModel> Contractors { get; set; }
 
         public int totalCount { get; set; }
         public int page { get; set; }
@@ -20,13 +19,13 @@ namespace HomeWorkWithUsers.ViewModels
         public bool canForward { get; set; }
 
 
-        public ListViewModel(int totalCount,int page, int size) {
-         
+        public ListViewModel(IEnumerable<T> listModel,int page, int size) {
+            this.List = listModel;
             this.page = page;
             this.size = size;
 
             canBack = page > 0;
-            canForward = page * size < totalCount-10;
+            canForward = page * size < List.Count()-10;
         }
     }
 }
