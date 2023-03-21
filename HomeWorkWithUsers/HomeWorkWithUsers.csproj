@@ -18,6 +18,10 @@
     <None Remove="Logic\Models\" />
     <None Remove="Logic\Models\Tasks\" />
     <None Remove="Logic\Models\Users\" />
+    <None Remove="Migration\" />
+    <None Remove="Data\Repository\" />
+    <None Remove="Data\Domain\" />
+    <None Remove="PostgreMigration\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Users\" />
@@ -29,5 +33,16 @@
     <Folder Include="LairLogic\Models\" />
     <Folder Include="LairLogic\Models\Tasks\" />
     <Folder Include="LairLogic\Models\Users\" />
+    <Folder Include="PostgreMigration\" />
+    <Folder Include="Data\Repository\" />
+    <Folder Include="Data\Domain\" />
+    <Folder Include="PostgreMigration\Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
+    <PackageReference Include="Npgsql" Version="7.0.2" />
+    <PackageReference Include="dbup-postgresql" Version="5.0.8" />
+    <PackageReference Include="Microsoft.SqlServer.Scripting" Version="11.0.2100.61" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿@using HomeWorkWithUsers.ViewModels
-@model ListViewModel<UserModel>
+@using HomeWorkWithUsers.Data.Domain
+@model ListViewModel<User>
 
 
 @{
@@ -35,16 +36,16 @@
             <tr>
 
                 <td>
-                    @Html.DisplayFor(usersItem => item.id)
+                    @Html.DisplayFor(usersItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(usersItem => item.surName)
+                    @Html.DisplayFor(usersItem => item.SurName)
                 </td>
                 <td>
-                    @Html.DisplayFor(usersItem => item.name)
+                    @Html.DisplayFor(usersItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(usersItem => item.email)
+                    @Html.DisplayFor(usersItem => item.Email)
                 </td>
 
                 <td>@Html.ActionLink("Редактировать", "EditUser", item)</td>

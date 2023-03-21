@@ -1,12 +1,27 @@
 ﻿using HomeWorkWithUsers.Data.Interface;
 using HomeWorkWithUsers.Data.Mocks;
+using HomeWorkWithUsers.Data.Repository;
+using HomeWorkWithUsers.PostgreMigration;
+using HomeWorkWithUsers.Data.Mocks;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<IAllUsers, MockUsers>();
-builder.Services.AddTransient<IAllTasks, MockTasks>();
+
+var dbType = builder.Configuration["DbConfig:Type"];
+switch (dbType) {
+    case "Postgres":
+        var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnectionString");
+        PostgreMigration.Migrate(connectionString);
+        builder.Services.AddScoped<IUserRepository, UserMockRepository>(provider => new UserMockRepository(connectionString));
+        break;
+    case "Mock":
+        builder.Services.AddTransient<IAllUsers, MockUsers>();
+        builder.Services.AddTransient<IAllTasks, MockTasks>();
+        break;
+}
+
 
 
 var app = builder.Build();

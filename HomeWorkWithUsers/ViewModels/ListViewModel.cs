@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Threading.Tasks;
 using HomeWorkWithUsers.Models;
+using HomeWorkWithUsers.Data.Domain;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HomeWorkWithUsers.ViewModels

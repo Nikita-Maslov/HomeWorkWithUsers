@@ -6,20 +6,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using HomeWorkWithUsers.Data.Interface;
+using HomeWorkWithUsers.Data.Repository;
 using HomeWorkWithUsers.Models;
 using HomeWorkWithUsers.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using HomeWorkWithUsers.Data.Domain;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HomeWorkWithUsers.Controllers {
     public class UsersController : Controller {
        
-        private readonly IAllUsers _allUsers;
+        //private readonly IAllUsers _allUsers;
+        private readonly IUserRepository repo;
 
+        /*
         public UsersController(IAllUsers allUsers) {
             _allUsers = allUsers;
+        }*/
+
+
+        public UsersController(IUserRepository r) {
+            repo = r;
         }
 
         // GET: /<controller>/
@@ -27,14 +36,16 @@ namespace HomeWorkWithUsers.Controllers {
             
             if (size == 0)
                 size = 10;
-            
-            var skip = page * size;
-            ListViewModel<UserModel> obj = new ListViewModel<UserModel>(_allUsers.Users, page, size);
 
-            List<UserModel> a = new List<UserModel>();
+
+            var userList = repo.GetUsers();
+            var skip = page * size;
+            ListViewModel<User> obj = new ListViewModel<User>(userList, page, size);
+
+            List<User> a = new List<User>();
             for (int i = skip; i < skip + size; i++) {
-                if (i < _allUsers.Users.Count()) {
-                    a.Add(_allUsers.Users.ElementAt(i));
+                if (i < userList.Count()) {
+                    a.Add(userList.ElementAt(i));
                 }
             }
             obj.List = a;
