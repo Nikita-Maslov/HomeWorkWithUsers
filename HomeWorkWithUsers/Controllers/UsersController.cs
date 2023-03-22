@@ -68,11 +68,16 @@ namespace HomeWorkWithUsers.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Check(User contact) {
+        public IActionResult CheckCreate(User contact) {
             repo.Create(contact);
             return Redirect("~/Users/Index");
         }
 
+        [HttpPost]
+        public IActionResult CheckUpdate(User contact) {
+            repo.Update(contact);
+            return Redirect("~/Users/Index");
+        }
     }
 
 }

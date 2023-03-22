@@ -26,11 +26,13 @@
         <th>Идентификатор</th>
         <th>Фамилия</th>
         <th>Имя</th>
+        <th>Телефон</th>
         <th>Емайл</th>
+        <th>Дата</th>
+        <th>Родители</th>
         <th>Другое</th>
     </tr>
-    @{int i = 1;
-
+    @{
         foreach (var item in Model.List)
         {
         <tr>
@@ -45,10 +47,19 @@
                 @Html.DisplayFor(usersItem => item.Name)
             </td>
             <td>
+                @Html.DisplayFor(usersItem => item.Phone)
+            </td>
+            <td>
                 @Html.DisplayFor(usersItem => item.Email)
             </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.ParentId)
+            </td>
 
-            <td>@Html.ActionLink("Редактировать", "EditUser", item) @Html.ActionLink("Удалить", "DeleteUser", item, @Model.page)</td>
+            <td>@Html.ActionLink("Редактировать", "EditUser", item) @Html.ActionLink("Удалить", "DeleteUser", item)</td>
 
         </tr>
          

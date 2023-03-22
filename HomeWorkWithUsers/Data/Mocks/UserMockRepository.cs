@@ -44,13 +44,15 @@ namespace HomeWorkWithUsers.Data.Mocks
         }
 
         public List<User> GetUsers() {
-            var users = connectionString.Query<User>("SELECT \"Id\", \"Name\", \"SurName\", \"Phone\", \"Email\", \"CreateDate\", \"ParentId\" FROM public.\"Users\";").ToList();
+            var users = connectionString.Query<User>("SELECT \"Id\", \"Name\", \"SurName\", \"Phone\", \"Email\", \"CreateDate\", \"ParentId\" FROM public.\"Users\" order by \"Id\" asc;").ToList();
             return users ?? new List<User>();
         }
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            user.CreateDate = DateTimeOffset.UtcNow.ToString();
+            var query = $"UPDATE public.\"Users\" SET \"Id\"={user.Id}, \"Name\"='{user.Name}', \"SurName\"='{user.SurName}', \"Phone\"='{user.Phone}', \"Email\"='{user.Email}', \"CreateDate\"='{user.CreateDate}', \"ParentId\"={user.ParentId} where \"Id\" = {user.Id};";
+            connectionString.Execute(query);
         }
     }
 }
