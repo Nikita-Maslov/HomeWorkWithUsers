@@ -17,15 +17,25 @@ namespace HomeWorkWithUsers.Data.Mocks
 
         public void Create(User user)
         {
-            user.CreateDate = DateTimeOffset.UtcNow.ToString(); ;
-            var query = $"INSERT INTO public.\"Users\"(\"Name\", \"SurName\", \"Phone\", \"Email\", \"CreateDate\", \"ParentId\")"+
-                $"VALUES('{user.Name}', '{user.SurName}', '{user.Phone}', '{user.Email}', '{user.CreateDate}', {user.ParentId});";
-            user.Id = connectionString.ExecuteScalar<int>(query);
+            user.Id = connectionString.ExecuteScalar<int>("SELECT max(\"Id\") FROM public.\"Users\"");
+            user.CreateDate = DateTimeOffset.UtcNow.ToString();
+            var query = $"INSERT INTO public.\"Users\"(\"Id\", \"Name\", \"SurName\", \"Phone\", \"Email\", \"CreateDate\", \"ParentId\")" +
+                $"VALUES('{(user.Id)+1}','{user.Name}', '{user.SurName}', '{user.Phone}', '{user.Email}', '{user.CreateDate}', {user.ParentId});";
+            connectionString.Execute(query);
         }
 
-        public void Delete(int id)
+        public String Delete(int id)
         {
-            throw new NotImplementedException();
+            String s;
+            var query = "DELETE FROM public.\"Users\" WHERE \"Id\"" +$" = {id};";
+            try {
+                var result = connectionString.Execute(query);
+                s= "запрос выполнен";
+            }
+            catch{
+                s = "";
+            }
+            return s;
         }
 
         public User Get(int id)

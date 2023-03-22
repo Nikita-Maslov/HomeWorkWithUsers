@@ -17,7 +17,7 @@
         </p>
     </div>
     <div class="d-inline float-end">
-        <p>Страница №@(Model.page)</p>
+        <p>Страница №@(Model.page+1)</p>
     </div>
 </div>
 
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(usersItem => item.Email)
             </td>
 
-            <td>@Html.ActionLink("Редактировать", "EditUser", item) @Html.ActionLink("Удалить", "DeleteUser", item)</td>
+            <td>@Html.ActionLink("Редактировать", "EditUser", item) @Html.ActionLink("Удалить", "DeleteUser", item, @Model.page)</td>
 
         </tr>
          

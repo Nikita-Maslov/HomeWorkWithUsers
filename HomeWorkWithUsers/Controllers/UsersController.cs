@@ -31,8 +31,9 @@ namespace HomeWorkWithUsers.Controllers {
             repo = r;
         }
 
+      
         // GET: /<controller>/
-        public IActionResult Index(int id, [FromQuery(Name = "page")] int page, [FromQuery(Name = "page-size")] int size) {
+        public IActionResult Index([FromQuery(Name = "page")] int page, [FromQuery(Name = "page-size")] int size) {
             
             if (size == 0)
                 size = 10;
@@ -61,10 +62,15 @@ namespace HomeWorkWithUsers.Controllers {
             return View(contact);
         }
 
+        public IActionResult DeleteUser(User contact, int page) {
+            var s = repo.Delete(contact.Id);
+            return Redirect("~/Users/Index");
+        }
+
         [HttpPost]
         public IActionResult Check(User contact) {
-                repo.Create(contact);
-                return RedirectToAction("EditUser",contact);      
+            repo.Create(contact);
+            return Redirect("~/Users/Index");
         }
 
     }
