@@ -82,7 +82,7 @@ namespace HomeWorkWithUsers.Controllers
         [HttpPost]
         public IActionResult CheckUpdateTask(MyTask contact) {
             repTask.Update(contact);
-            return Redirect("~/Users/Index");
+            return Redirect("~/Tasks/Index");
         }
     }
 }
