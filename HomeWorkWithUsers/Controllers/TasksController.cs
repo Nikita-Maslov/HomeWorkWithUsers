@@ -8,6 +8,9 @@ using HomeWorkWithUsers.ViewModels;
 using HomeWorkWithUsers.Models;
 using HomeWorkWithUsers.LairLogic.Models.Tasks;
 using HomeWorkWithUsers.Data.Mocks;
+using HomeWorkWithUsers.Data.Domain;
+using HomeWorkWithUsers.Data.Repository;
+using System.Collections;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,14 +18,18 @@ namespace HomeWorkWithUsers.Controllers
 {
     public class TasksController : Controller
     {
+        private readonly ITaskRepository repTask;
+        private readonly IUserRepository repUser;
 
-        private readonly IAllTasks _allTasks;
-        private readonly IAllUsers _allUsers;
-
-
+        /*
         public TasksController(IAllTasks allTasks, IAllUsers allUsers) {
             _allTasks = allTasks;
             _allUsers = allUsers;
+        }*/
+
+        public TasksController(ITaskRepository rT, IUserRepository rU) {
+            repTask = rT;
+            repUser = rU;
         }
 
 
@@ -32,15 +39,16 @@ namespace HomeWorkWithUsers.Controllers
             if (size == 0)
                 size = 10;
 
+            var taskList = repTask.GetTasks();
             var skip = page * size;
 
-            ListViewModel<TaskModel> obj = new ListViewModel<TaskModel>(_allTasks.Tasks, page, size);
+            ListViewModel<MyTask> obj = new ListViewModel<MyTask>(taskList, page, size);
 
-            List<TaskModel> a = new List<TaskModel>();
+            List<MyTask> a = new List<MyTask>();
 
             for (int i = skip; i < skip + size; i++) {
-                if (i < _allTasks.Tasks.Count()) {
-                    a.Add(_allTasks.Tasks.ElementAt(i));
+                if (i < taskList.Count()) {
+                    a.Add(taskList.ElementAt(i));
                 }
             }
 
@@ -50,24 +58,31 @@ namespace HomeWorkWithUsers.Controllers
 
       
         public IActionResult AddTask() {
+            List<User> taskList = repUser.GetUsers();
             AddNewTaskViewModel obj = new AddNewTaskViewModel();
-            obj.Contractors = _allUsers.Users;
+            obj.Contractors = taskList;
             return View(obj);
         }
 
-        public IActionResult EditTask(TaskCreateDTO contact) {
+        public IActionResult EditTask(MyTask contact) {
             return View(contact);
         }
 
         [HttpPost]
-        public IActionResult Check(TaskCreateDTO contact) {
-            if (ModelState.IsValid) {
-                MockTasks mockTasks = new MockTasks();
-                mockTasks.Tasks.Append(new TaskModel(_allTasks.Tasks.Last().Id+1, contact.Subject,contact.ContractorId, contact.Description));
-               
-                return RedirectToAction("EditTask", contact);
-            }
-            return View("Index");
+        public IActionResult CheckCreateTask(MyTask contact) {
+            repTask.Create(contact);
+            return Redirect("~/Tasks/Index");
+        }
+
+        public IActionResult DeleteTask(MyTask contact) {
+            var s = repTask.Delete(contact.Id);
+            return Redirect("~/Tasks/Index");
+        }
+
+        [HttpPost]
+        public IActionResult CheckUpdateTask(MyTask contact) {
+            repTask.Update(contact);
+            return Redirect("~/Users/Index");
         }
     }
 }

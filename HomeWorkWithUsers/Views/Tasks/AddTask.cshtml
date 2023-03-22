@@ -9,22 +9,22 @@
     <h2 class="display-4">@ViewData["Title"] </h2>
 </div>
 
-<form method="post" asp-controller="Tasks" asp-action="Check">
+<form method="post" asp-controller="Tasks" asp-action="CheckCreateTask">
     <div class="form-group row">
-        <label for="Subject" class="col-1 col-form-label">Описание</label>
+        <label for="Subject" class="col-1 col-form-label">Заголовок задачи</label>
         <div class="col-11">
             <input type="text" name="Subject" value="" />
         </div>
     </div>
 
-    <div>
+    <div class="form-group row">
         <label for="ContractorId" class="col-1 ">Пользователь</label>
         <div class="col-11">
             <select name="ContractorId">
                 @{
                     foreach (var contractor in Model.Contractors)
                     {
-                        <option value="@contractor.id"> @contractor.name </option>
+                        <option value="@contractor.Id"> @contractor.Name @contractor.SurName </option>
 
                     }
                 }
@@ -32,8 +32,8 @@
         </div>
     </div>
 
-    <div class="form-group row">
-        <label for="Description" class="col-1"></label>
+    <div class="form-group row mt-3">
+        <label for="Description" class="col-1">Описание задачи</label>
         <div class="col-11">
             <textarea cols="50" rows="10" name="Description" value=""></textarea>
         </div>

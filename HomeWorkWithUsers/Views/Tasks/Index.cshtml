@@ -1,5 +1,6 @@
 ﻿@using HomeWorkWithUsers.ViewModels
-@model ListViewModel<TaskModel>
+@using HomeWorkWithUsers.Data.Domain
+@model ListViewModel<MyTask>
 
 
 @{
@@ -47,7 +48,7 @@
                     @Html.DisplayFor(usersItem => item.Description)
                 </td>
 
-                <td>@Html.ActionLink("Редактировать", "EditTask", item)</td>
+                <td>@Html.ActionLink("Редактировать", "EditTask", item) @Html.ActionLink("Удалить", "DeleteTask", item)</td>
 
             </tr>
             i++;

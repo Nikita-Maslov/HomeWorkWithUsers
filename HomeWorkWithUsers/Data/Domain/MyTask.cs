@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace HomeWorkWithUsers.Data.Domain
 {
-    public class Task
+    public class MyTask
 	{
 
         // Идентификатор задачи
@@ -28,6 +28,9 @@ namespace HomeWorkWithUsers.Data.Domain
         /// Описание задачи
         public String Description { get; set; }
 
-	}
+        /// Дата создания
+        public String CreateDate { get; set; }
+
+    }
 }
 

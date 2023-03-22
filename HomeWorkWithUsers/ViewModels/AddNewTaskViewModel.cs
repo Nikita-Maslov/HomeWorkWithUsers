@@ -1,22 +1,24 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using HomeWorkWithUsers.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using HomeWorkWithUsers.Data.Domain;
 
-namespace HomeWorkWithUsers.ViewModels
-{
-	public class AddNewTaskViewModel
-	{
-        public IEnumerable<UserModel> Contractors { get; set; }
+namespace HomeWorkWithUsers.ViewModels {
+    public class AddNewTaskViewModel {
 
-        [Display(Name = "Заголовок")]
+        // Заголовок
         public String Subject { get; set; }
 
-        [Display(Name = "Исполнитель задачи")]
+        // Исполнитель задачи для визуализации
+        public User Contractor { get; set; }
+
+        // Исполнитель задачи для мапинга формы
         public int ContractorId { get; set; }
 
+
+        //Возможные исполнители задачи
+        public List<User> Contractors { get; set; }
+
+
         /// Описание задачи
-        [Display(Name = "Описание задачи")]
         public String Description { get; set; }
     }
 }
