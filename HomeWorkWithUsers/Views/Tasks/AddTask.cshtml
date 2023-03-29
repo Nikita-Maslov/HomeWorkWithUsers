@@ -1,9 +1,11 @@
 ﻿@using HomeWorkWithUsers.ViewModels
+@using System.Globalization
 @model AddNewTaskViewModel
 
 @{
     ViewData["Title"] = "Добавить задачу";
 }
+
 
 <div class="text-center">
     <h2 class="display-4">@ViewData["Title"] </h2>
@@ -11,35 +13,62 @@
 
 <form method="post" asp-controller="Tasks" asp-action="CheckCreateTask">
     <div class="form-group row">
-        <label for="Subject" class="col-1 col-form-label">Заголовок задачи</label>
-        <div class="col-11">
+        <label for="Subject" class="col-2 col-form-label">Заголовок задачи</label>
+        <div class="col-10">
             <input type="text" name="Subject" value="" />
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="ContractorId" class="col-1 ">Пользователь</label>
-        <div class="col-11">
+        <label for="ContractorId" class="col-2 ">Пользователь</label>
+        <div class="col-10">
             <select name="ContractorId">
                 @{
-                    foreach (var contractor in Model.Contractors)
-                    {
-                        <option value="@contractor.Id"> @contractor.Name @contractor.SurName </option>
+                    
+                        foreach (var contractor in Model.Contractors)
+                        {
+                            <option value="@contractor.Id"> @contractor.Name @contractor.SurName </option>
 
+                        }
+                    }else
+                    {
+                        <option value=""> пользователи не созданы </option>
                     }
-                }
+              
             </select>
         </div>
     </div>
 
     <div class="form-group row mt-3">
-        <label for="Description" class="col-1">Описание задачи</label>
-        <div class="col-11">
+        <label for="Description" class="col-2">Описание задачи</label>
+        <div class="col-10">
             <textarea cols="50" rows="10" name="Description" value=""></textarea>
         </div>
     </div>
 
-    <div>
-        <button type="submit" class="btn btn-primary">отправить</button>
+    <div class="form-group row ">
+        <label for="CreateDate" class="col-2 col-form-label">Дата создания задачи</label>
+        <div class="col-10">
+            <input type="text" name="CreateDate" value="@Model.CreateDate" disabled />
+        </div>
     </div>
+    
+
+    <div class="form-group row">
+        <label for="DeadLineDate" class="col-2 col-form-label">Дедлайн</label>
+        <div class="col-10">
+            <input type="datetime-local" name="DeadLineDate" />
+        </div>
+     </div>
+
+        <div class="form-group row d-none">
+            <label for="CreateDate" class="col-2 col-form-label">Дата создания задачи</label>
+            <div class="col-10">
+                <input type="text" name="CreateDate" value="@Model.CreateDate" />
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">отправить</button>
+        </div>
 </form>

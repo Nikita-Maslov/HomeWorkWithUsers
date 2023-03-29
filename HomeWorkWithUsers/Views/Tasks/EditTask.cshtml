@@ -1,5 +1,5 @@
-﻿@using HomeWorkWithUsers.Data.Domain
-@model MyTask
+﻿@using LayerApp.BLL.DTO
+@model TaskDTO
 @{
     ViewData["Title"] = "Редактировать задачу";
 }
@@ -16,25 +16,63 @@
             <span asp-validation-for="Id"></span>
         </div>
     </div>
+
     <div class="form-group row">
-        <label asp-for="Subject" class="col-1 col-form-label"></label>
-        <div class="col-11">
-            <input asp-for="Subject" value="@Model.Subject" />
-            <span asp-validation-for="Subject"></span>
+        <label for="Subject" class="col-2 col-form-label">Заголовок задачи</label>
+        <div class="col-10">
+            <input type="text" name="Subject" value="@Model.Subject" />
         </div>
     </div>
+
     <div class="form-group row">
-        <label asp-for="ContractorId" class="col-1 col-form-label"></label>
-        <div class="col-11">
-            <input asp-for="ContractorId" />
-            <span asp-validation-for="ContractorId"></span>
+        <label for="ContractorId" class="col-2 ">Пользователь</label>
+        <div class="col-10">
+            <select name="ContractorId">
+                @{
+                    if (Model.Contractors != null) {
+                        foreach (var contractor in Model.Contractors)
+                        {
+                            if (contractor.Id == Model.ContractorId)
+                            {
+                            <option value="@contractor.Id" selected> @contractor.Name @contractor.SurName </option>
+                            }
+                            else
+                            {
+                            <option value="@contractor.Id"> @contractor.Name @contractor.SurName </option>
+                                }
+                            }
+                        }
+                    }
+            </select>
         </div>
     </div>
+
+    <div class="form-group row mt-3">
+        <label for="Description" class="col-2">Описание задачи</label>
+        <div class="col-10">
+            <textarea cols="50" rows="10" name="Description" value="@Model.Description">@Model.Description</textarea>
+        </div>
+    </div>
+
+    <div class="form-group row ">
+        <label for="CreateDate" class="col-2 form-label">Дата создания задачи</label>
+        <div class="col-10">
+            <input type="text" name="CreateDate" value="@Model.CreateDate" disabled />
+        </div>
+    </div>
+
+    <div class="form-group row d-none">
+        <label for="CreateDate" class="col-2 form-label">Дата создания задачи</label>
+        <div class="col-10">
+            <input type="text" name="CreateDate" value="@Model.CreateDate"/>
+        </div>
+    </div>
+
+
     <div class="form-group row">
-        <label asp-for="Description" class="col-1 col-form-label"></label>
-        <div class="col-11">
-            <textarea asp-for="Description" cols="50" rows="10" value=""></textarea>
-            <span asp-validation-for="Description"></span>
+        <label for="DeadLineDate" class="col-2 col-form-label">Дедлайн</label>
+        <div class="col-10">
+            <input type="datetime-local" name="DeadLineDate" value="@Model.DeadLineDate"/>
         </div>
     </div>
 

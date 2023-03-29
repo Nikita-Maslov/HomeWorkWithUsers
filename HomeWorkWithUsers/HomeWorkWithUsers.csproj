@@ -11,31 +11,18 @@
   <ItemGroup>
     <None Remove="Views\Users\" />
     <None Remove="ViewModels\" />
-    <None Remove="Data\" />
-    <None Remove="Data\Interface\" />
-    <None Remove="Data\Mocks\" />
     <None Remove="Views\Tasks\" />
     <None Remove="Logic\Models\" />
     <None Remove="Logic\Models\Tasks\" />
     <None Remove="Logic\Models\Users\" />
     <None Remove="Migration\" />
-    <None Remove="Data\Repository\" />
-    <None Remove="Data\Domain\" />
     <None Remove="PostgreMigration\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Users\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Data\" />
-    <Folder Include="Data\Interface\" />
-    <Folder Include="Data\Mocks\" />
     <Folder Include="Views\Tasks\" />
-    <Folder Include="LairLogic\Models\" />
-    <Folder Include="LairLogic\Models\Tasks\" />
-    <Folder Include="LairLogic\Models\Users\" />
     <Folder Include="PostgreMigration\" />
-    <Folder Include="Data\Repository\" />
-    <Folder Include="Data\Domain\" />
     <Folder Include="PostgreMigration\Scripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +30,14 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
     <PackageReference Include="Npgsql" Version="7.0.2" />
     <PackageReference Include="dbup-postgresql" Version="5.0.8" />
-    <PackageReference Include="Microsoft.SqlServer.Scripting" Version="11.0.2100.61" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogicLayer\LayerApp.BLL..csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿@using HomeWorkWithUsers.ViewModels
-@using HomeWorkWithUsers.Data.Domain
-@model ListViewModel<MyTask>
+@using LayerApp.BLL.DTO
+@model TaskListViewModel
 
 
 @{
@@ -27,30 +27,45 @@
         <th>Заголовок задачи</th>
         <th>Исполнитель задачи </th>
         <th>Описание задачи</th>
+        <th>Дата создания</th>
+        <th>Дедлайн</th>
         <th>Другое</th>
     </tr>
     @{int i = 1;
 
-        foreach (var item in Model.List)
+        foreach (var item in Model.ListTask)
         {
-            <tr>
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(usersItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(usersItem => item.Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(usersItem => item.ContractorId)
-                </td>
-                <td>
-                    @Html.DisplayFor(usersItem => item.Description)
-                </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.Subject)
+            </td>
+            <td>
 
-                <td>@Html.ActionLink("Редактировать", "EditTask", item) @Html.ActionLink("Удалить", "DeleteTask", item)</td>
+                @{
+                        foreach (var itemU in Model.ListUser)
+                            if (itemU.Id == item.ContractorId)
+                            {
+                                @Html.DisplayFor(usersItem => itemU.SurName)<span> </span> @Html.DisplayFor(usersItem => itemU.Name)
+                            }
+                    } 
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(usersItem => item.DeadLineDate)
+            </td>
 
-            </tr>
+            <td>@Html.ActionLink("Редактировать", "EditTask", item) | @Html.ActionLink("Удалить", "DeleteTask", item)</td>
+
+        </tr>
             i++;
         }
 
@@ -68,6 +83,7 @@
     @if (Model.canForward)
     {
         <a class="" href="/Tasks/?page=@(Model.page + 1)">
-            <button type="submit" class="btn btn-primary">Вперед</button></a>
-     }
+            <button type="submit" class="btn btn-primary">Вперед</button>
+        </a>
+    }
 </div>

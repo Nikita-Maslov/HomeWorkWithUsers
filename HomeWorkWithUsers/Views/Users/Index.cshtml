@@ -1,6 +1,5 @@
 ﻿@using HomeWorkWithUsers.ViewModels
-@using HomeWorkWithUsers.Data.Domain
-@model ListViewModel<User>
+@model UserListViewModel
 
 
 @{
@@ -29,11 +28,10 @@
         <th>Телефон</th>
         <th>Емайл</th>
         <th>Дата</th>
-        <th>Родители</th>
         <th>Другое</th>
     </tr>
     @{
-        foreach (var item in Model.List)
+        foreach (var item in Model.ListUser)
         {
         <tr>
 
@@ -54,9 +52,6 @@
             </td>
             <td>
                 @Html.DisplayFor(usersItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(usersItem => item.ParentId)
             </td>
 
             <td>@Html.ActionLink("Редактировать", "EditUser", item) @Html.ActionLink("Удалить", "DeleteUser", item)</td>

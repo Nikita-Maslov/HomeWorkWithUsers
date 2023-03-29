@@ -11,8 +11,7 @@ CREATE TABLE IF NOT exists public."Tasks"(
 	"Id" serial4 NOT NULL,
 	"Subject" varchar(255) NULL,
 	"Description" text NULL,
-	"Contractorid" int4 NULL,
-	"Initiatorid" int4 NULL,
-	"Createdate" varchar(50) NULL,
-	"Deadlinedate" varchar(50) NULL
+	"ContractorId" int4 NULL,
+	"CreateDate" varchar(50) NULL,
+	"DeadLineDate" varchar(50) NULL
 );

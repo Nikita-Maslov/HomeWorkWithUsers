@@ -5,77 +5,69 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using HomeWorkWithUsers.Data.Interface;
-using HomeWorkWithUsers.Data.Repository;
-using HomeWorkWithUsers.Models;
+using AppDAL.EF;
+using AutoMapper;
 using HomeWorkWithUsers.ViewModels;
+using LayerApp.BLL.DTO;
+using LayerApp.BLL.Interfaces;
+using LayerApp.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using HomeWorkWithUsers.Data.Domain;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HomeWorkWithUsers.Controllers {
-    public class UsersController : Controller {
-       
-        //private readonly IAllUsers _allUsers;
-        private readonly IUserRepository repo;
 
+    public class UsersController : Controller {
         /*
-        public UsersController(IAllUsers allUsers) {
-            _allUsers = allUsers;
+        AppDBContext db { get; set; }
+
+        public UsersController(AppDBContext uow) {
+            db = uow;
         }*/
 
-
-        public UsersController(IUserRepository r) {
-            repo = r;
+        IUserService userService;
+        public UsersController(UserService serv) {
+            userService = serv;
         }
 
-      
+
         // GET: /<controller>/
         public IActionResult Index([FromQuery(Name = "page")] int page, [FromQuery(Name = "page-size")] int size) {
-            
+
             if (size == 0)
                 size = 10;
 
-
-            var userList = repo.GetUsers();
             var skip = page * size;
-            ListViewModel<User> obj = new ListViewModel<User>(userList, page, size);
+            var userList = userService.GetUsersForListView(skip, size);
 
-            List<User> a = new List<User>();
-            for (int i = skip; i < skip + size; i++) {
-                if (i < userList.Count()) {
-                    a.Add(userList.ElementAt(i));
-                }
-            }
-            obj.List = a;
+            UserListViewModel obj = new UserListViewModel(userList, page, size);
+
             return View(obj);
+
         }
 
-
+     
         public IActionResult AddUser() {
             return View();
         }
-
-        public IActionResult EditUser(User contact) {
+        
+        public IActionResult EditUser(UserDTO contact) {
             return View(contact);
         }
 
-        public IActionResult DeleteUser(User contact, int page) {
-            var s = repo.Delete(contact.Id);
+        public IActionResult DeleteUser(UserDTO contact) {
+            userService.DeleteUser(contact);
+            return Redirect("~/Users/Index");
+        }
+        
+        [HttpPost]
+        public IActionResult CheckCreate(UserDTO contact) {
+            userService.AddUser(contact);
             return Redirect("~/Users/Index");
         }
 
+        
         [HttpPost]
-        public IActionResult CheckCreate(User contact) {
-            repo.Create(contact);
-            return Redirect("~/Users/Index");
-        }
-
-        [HttpPost]
-        public IActionResult CheckUpdate(User contact) {
-            repo.Update(contact);
+        public IActionResult CheckUpdate(UserDTO contact) {
+            userService.UpdateUser(contact);
             return Redirect("~/Users/Index");
         }
     }
